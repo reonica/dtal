@@ -397,19 +397,24 @@ footer {
 
   .hamburger-menu {
     display: flex; /* Show hamburger on mobile */
+    flex-shrink: 0; /* Prevent hamburger from shrinking */
+    margin-left: 10px; /* Small gap between logo and hamburger */
   }
 
   .navbar-brand { /* Added: Ensure navbar-brand can shrink */
-    flex-shrink: 1;
+    flex-grow: 1; /* Allow it to grow to fill space */
+    flex-shrink: 1; /* Allow it to shrink */
     min-width: 0; /* Allow content to shrink below its intrinsic size */
+    display: flex; /* Make it a flex container to control logo */
+    align-items: center; /* Vertically align logo */
   }
 
   .nav-logo {
     max-height: 50px;
-    max-width: 180px; /* Added: Limit logo width on mobile */
-    width: auto;
+    width: 100%; /* Make it fill its parent's flexible width */
+    max-width: 180px; /* Limit logo width on mobile */
     object-fit: contain;
-    flex-shrink: 1; /* Changed: Allow shrinking */
+    /* flex-shrink: 1; is now handled by navbar-brand */
   }
 
   .navbar-menu {
