@@ -44,19 +44,22 @@
   <section id="services" class="section">
     <h2>Our Digital Marketing Services</h2>
     <p>At DTAL Agency, our expertise spans the full spectrum of digital transformation, seamlessly integrating <strong>data-driven digital marketing</strong>, strategic communication, and cutting-edge visual design. We provide interconnected solutions designed to elevate your brand and drive tangible growth.</p>
-    <div class="services">
-      <div class="service">
+    <div class="services" id="service-carousel">
+      <div class="service" id="service-item-0">
         <h3>Data-Driven SEO & Content Marketing</h3>
         <p>Enhance search visibility, optimize content with AI, conduct in-depth technical audits, and build quality backlinks based on competitor analysis.</p>
       </div>
-      <div class="service">
+      <div class="service" id="service-item-1">
         <h3>Performance-Driven Paid Advertising</h3>
         <p>Maximize ROI with advertising campaigns on Google Ads, Meta (Facebook, Instagram), TikTok, LinkedIn, and Programmatic Buying.</p>
       </div>
-      <div class="service">
+      <div class="service" id="service-item-2">
         <h3>Strategic Brand & Digital Growth</h3>
         <p>Develop brand identity, manage reputation, provide market strategy consulting, and build comprehensive data-driven marketing plans.</p>
       </div>
+    </div>
+    <div class="service-pagination" id="service-pagination">
+      <!-- Dots will be dynamically generated here by JavaScript -->
     </div>
   </section>
 
@@ -69,14 +72,20 @@
         <img src="image/partner/logo-techcombank.png" alt="Techcombank" />
         <img src="image/partner/logo-acecook.png" alt="Acecook" />
         <img src="image/partner/logo-hoaphat.png" alt="Hoa Phat Group" />
-        <!-- Add more partner logos here as needed -->
+        <img src="image/partner/logo-techcombank.png" alt="Techcombank" />
+        <img src="image/partner/logo-acecook.png" alt="Acecook" />
+        <img src="image/partner/logo-hoaphat.png" alt="Hoa Phat Group" />
+        <!-- Add more partner logos here as needed, and duplicate them -->
       </div>
       <div class="partners-inner">
         <!-- Duplicate the logos again for the infinite scroll effect -->
         <img src="image/partner/logo-techcombank.png" alt="Techcombank" />
         <img src="image/partner/logo-acecook.png" alt="Acecook" />
         <img src="image/partner/logo-hoaphat.png" alt="Hoa Phat Group" />
-        <!-- Add more partner logos here as needed -->
+        <img src="image/partner/logo-techcombank.png" alt="Techcombank" />
+        <img src="image/partner/logo-acecook.png" alt="Acecook" />
+        <img src="image/partner/logo-hoaphat.png" alt="Hoa Phat Group" />
+        <!-- Add more partner logos here as needed, and duplicate them -->
       </div>
     </div>
   </section>
@@ -90,8 +99,8 @@
   <button id="back-to-top" class="back-to-top">↑</button>
 
   <script>
-    // Smooth scrolling for anchor links
-    document.documentElement.style.scrollBehavior = 'smooth';
+    // Smooth scrolling for anchor links (already set in CSS html selector)
+    // document.documentElement.style.scrollBehavior = 'smooth';
 
     // Back to Top Button functionality
     const backToTopButton = document.getElementById('back-to-top');
@@ -125,6 +134,61 @@
         }
       });
     });
+
+    // Service Carousel Pagination
+    const serviceCarousel = document.getElementById('service-carousel');
+    const serviceItems = serviceCarousel.querySelectorAll('.service');
+    const servicePagination = document.getElementById('service-pagination');
+
+    // Generate dots dynamically
+    serviceItems.forEach((item, index) => {
+      const dot = document.createElement('div');
+      dot.classList.add('pagination-dot');
+      dot.dataset.index = index; // Store index for reference
+      servicePagination.appendChild(dot);
+
+      dot.addEventListener('click', () => {
+        // Scroll to the corresponding service item when a dot is clicked
+        serviceItems[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      });
+    });
+
+    const paginationDots = servicePagination.querySelectorAll('.pagination-dot');
+
+    // Function to update active dot based on scroll position
+    function updateActiveDot() {
+      const carouselScrollLeft = serviceCarousel.scrollLeft;
+      const carouselWidth = serviceCarousel.offsetWidth;
+      let activeIndex = 0;
+
+      for (let i = 0; i < serviceItems.length; i++) {
+        const item = serviceItems[i];
+        const itemLeft = item.offsetLeft; // Position relative to its parent (carousel)
+
+        // Check if the item's left edge is approximately at the start of the carousel's view
+        // Allow a small tolerance for floating point inaccuracies
+        const tolerance = 5; // pixels
+
+        if (carouselScrollLeft >= itemLeft - tolerance && carouselScrollLeft < itemLeft + item.offsetWidth - tolerance) {
+          activeIndex = i;
+          break; // Found the active item, exit loop
+        }
+      }
+
+      paginationDots.forEach((dot, index) => {
+        if (index === activeIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    // Initial active dot setup
+    updateActiveDot();
+
+    // Update active dot on scroll
+    serviceCarousel.addEventListener('scroll', updateActiveDot);
   </script>
 
 </body>
