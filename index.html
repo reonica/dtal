@@ -158,22 +158,17 @@
     // Function to update active dot based on scroll position
     function updateActiveDot() {
       const carouselScrollLeft = serviceCarousel.scrollLeft;
-      const carouselWidth = serviceCarousel.offsetWidth;
-      let activeIndex = 0;
+      // Get the width of the first service item (assuming all are uniform)
+      // Add margin-right to get the full width of one slide
+      const itemWidthWithMargin = serviceItems[0].offsetWidth + 20; 
+      
+      // Calculate the current index based on scroll position
+      // Use Math.round to account for partial scrolls and snap behavior
+      let activeIndex = Math.round(carouselScrollLeft / itemWidthWithMargin);
 
-      for (let i = 0; i < serviceItems.length; i++) {
-        const item = serviceItems[i];
-        const itemLeft = item.offsetLeft; // Position relative to its parent (carousel)
-
-        // Check if the item's left edge is approximately at the start of the carousel's view
-        // Allow a small tolerance for floating point inaccuracies
-        const tolerance = 5; // pixels
-
-        if (carouselScrollLeft >= itemLeft - tolerance && carouselScrollLeft < itemLeft + item.offsetWidth - tolerance) {
-          activeIndex = i;
-          break; // Found the active item, exit loop
-        }
-      }
+      // Ensure activeIndex is within bounds
+      if (activeIndex < 0) activeIndex = 0;
+      if (activeIndex >= serviceItems.length) activeIndex = serviceItems.length - 1;
 
       paginationDots.forEach((dot, index) => {
         if (index === activeIndex) {
