@@ -195,7 +195,7 @@ h1, h2, h3 {
 .services {
   display: flex;
   justify-content: space-around;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Default: wrap on desktop */
   gap: 30px;
   margin-top: 40px;
 }
@@ -222,26 +222,42 @@ h1, h2, h3 {
 }
 
 /* --- Partners Section --- */
-.partners {
+.partners-carousel-container {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
+  overflow: hidden; /* Hide overflow for the continuous scroll */
+  width: 100%;
   margin-top: 40px;
-  align-items: center;
+  white-space: nowrap; /* Prevent items from wrapping */
 }
 
-.partners img {
+.partners-inner {
+  display: flex;
+  animation: scroll-left 30s linear infinite; /* Adjust duration as needed */
+  /* Duplicate content here to ensure seamless loop */
+}
+
+.partners-inner img {
   max-height: 80px; /* Kích thước logo đối tác */
   width: auto;
+  flex-shrink: 0; /* Prevent images from shrinking */
+  margin-right: 40px; /* Space between logos */
   filter: grayscale(100%); /* Làm mờ màu sắc logo */
   opacity: 0.7;
   transition: all 0.3s ease;
 }
 
-.partners img:hover {
+.partners-inner img:hover {
   filter: grayscale(0%);
   opacity: 1;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%); /* Scroll exactly half the content to loop seamlessly */
+  }
 }
 
 /* --- Footer --- */
@@ -281,6 +297,9 @@ footer {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  body {
+    padding-top: 100px; /* Adjusted: More padding for mobile navbar */
+  }
   .navbar {
     flex-wrap: wrap; /* Allow items to wrap */
     justify-content: space-between;
@@ -337,13 +356,29 @@ footer {
   .btn {
     padding: 10px 20px;
   }
+
+  /* Services Section Mobile Slide */
   .services {
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: nowrap; /* Prevent wrapping on mobile */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    scroll-snap-type: x mandatory; /* Snap to items */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    justify-content: flex-start; /* Align items to start for scrolling */
+    gap: 0; /* Remove gap if using margin-right on service items */
+    padding-bottom: 20px; /* Add padding for scrollbar */
   }
+
   .service {
-    max-width: 90%;
+    flex-shrink: 0; /* Prevent items from shrinking */
+    width: 85vw; /* Each item takes 85% of viewport width */
+    margin-right: 20px; /* Space between items */
+    scroll-snap-align: start; /* Snap to the start of each item */
   }
+
+  .service:last-child {
+    margin-right: 0; /* No margin on the last item */
+  }
+
   .partners img {
     max-height: 60px;
   }
