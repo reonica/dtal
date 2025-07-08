@@ -94,33 +94,39 @@
   <footer>
     <div class="footer-container">
       <div class="footer-column contact-info">
-        <h3>Contact Us</h3>
-        <p><strong>Address:</strong> Hà Đông, Hà Nội</p>
-        <p><strong>Phone:</strong> <a href="tel:+84916882975">+84 916 882 975</a></p>
-        <p><strong>Email:</strong> <a href="mailto:seonomie.work@gmail.com">seonomie.work@gmail.com</a></p>
+        <h3 class="footer-toggle">Contact Us <span class="toggle-icon">+</span></h3>
+        <div class="footer-content">
+          <p><strong>Address:</strong> Hà Đông, Hà Nội</p>
+          <p><strong>Phone:</strong> <a href="tel:+84916882975">+84 916 882 975</a></p>
+          <p><strong>Email:</strong> <a href="mailto:seonomie.work@gmail.com">seonomie.work@gmail.com</a></p>
+        </div>
       </div>
       <div class="footer-column partners-links">
-        <h3>Our Partners</h3>
-        <ul>
-          <li><a href="https://seonomie.com/" target="_blank">Seo Service Hanoi</a></li>
-          <li><a href="https://datalchimie.blogspot.com/" target="_blank">Data-driven Digital Marketing Partner</a></li>
-          <li><a href="https://lazivoyage.com/" target="_blank">Travel Blog</a></li>
-          <li><a href="https://avecjo.wordpress.com/" target="_blank">Guide Francophone Vietnam</a></li>
-        </ul>
+        <h3 class="footer-toggle">Our Partners <span class="toggle-icon">+</span></h3>
+        <div class="footer-content">
+          <ul>
+            <li><a href="https://seonomie.com/" target="_blank">Seo Service Hanoi</a></li>
+            <li><a href="https://datalchimie.blogspot.com/" target="_blank">Data-driven Digital Marketing Partner</a></li>
+            <li><a href="https://lazivoyage.com/" target="_blank">Travel Blog</a></li>
+            <li><a href="https://avecjo.wordpress.com/" target="_blank">Guide Francophone Vietnam</a></li>
+          </ul>
+        </div>
       </div>
       <div class="footer-column quick-links">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#services">Our Services</a></li>
-          <li><a href="#partners">Our Partners</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-        </ul>
+        <h3 class="footer-toggle">Quick Links <span class="toggle-icon">+</span></h3>
+        <div class="footer-content">
+          <ul>
+            <li><a href="#services">Our Services</a></li>
+            <li><a href="#partners">Our Partners</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
       </div>
       <div class="footer-column social-media">
-        <h3>Follow Us</h3>
-        <div class="social-icons">
+        <h3 class="footer-toggle">Follow Us <span class="toggle-icon">+</span></h3>
+        <div class="footer-content social-icons">
           <a href="#" target="_blank">Facebook</a> <!-- Placeholder for icon -->
           <a href="#" target="_blank">LinkedIn</a> <!-- Placeholder for icon -->
           <a href="#" target="_blank">Instagram</a> <!-- Placeholder for icon -->
@@ -192,18 +198,26 @@
 
     // Function to update active dot based on scroll position
     function updateActiveDot() {
-      const carouselScrollLeft = serviceCarousel.scrollLeft;
-      // Get the width of the first service item (assuming all are uniform)
-      // Add margin-right to get the full width of one slide
-      const itemWidthWithMargin = serviceItems[0].offsetWidth + 20; 
-      
-      // Calculate the current index based on scroll position
-      // Use Math.round to account for partial scrolls and snap behavior
-      let activeIndex = Math.round(carouselScrollLeft / itemWidthWithMargin);
+      if (window.innerWidth >= 768) { // Only run on mobile (or smaller screens)
+        paginationDots.forEach(dot => dot.classList.remove('active')); // Remove active from all dots
+        return; // Exit if not on mobile
+      }
 
-      // Ensure activeIndex is within bounds
-      if (activeIndex < 0) activeIndex = 0;
-      if (activeIndex >= serviceItems.length) activeIndex = serviceItems.length - 1;
+      const carouselScrollLeft = serviceCarousel.scrollLeft;
+      const itemWidthWithMargin = serviceItems[0].offsetWidth + 20; // Assuming 20px margin-right from CSS
+      
+      // Calculate the current index based on scroll position, using a threshold
+      let activeIndex = 0;
+      for (let i = 0; i < serviceItems.length; i++) {
+        const itemStart = serviceItems[i].offsetLeft;
+        const itemEnd = itemStart + serviceItems[i].offsetWidth;
+        // Check if the center of the current view is within this item
+        if (carouselScrollLeft + (serviceCarousel.offsetWidth / 2) >= itemStart &&
+            carouselScrollLeft + (serviceCarousel.offsetWidth / 2) < itemEnd) {
+          activeIndex = i;
+          break;
+        }
+      }
 
       paginationDots.forEach((dot, index) => {
         if (index === activeIndex) {
@@ -219,6 +233,59 @@
 
     // Update active dot on scroll
     serviceCarousel.addEventListener('scroll', updateActiveDot);
+
+    // Footer Accordion (Mobile Only)
+    const footerToggles = document.querySelectorAll('.footer-toggle');
+
+    footerToggles.forEach(toggle => {
+      toggle.addEventListener('click', function() {
+        if (window.innerWidth < 768) { // Only enable on mobile
+          const content = this.nextElementSibling; // The .footer-content div
+          const icon = this.querySelector('.toggle-icon');
+
+          if (content.style.maxHeight) {
+            content.style.maxHeight = null; // Collapse
+            icon.textContent = '+';
+          } else {
+            // Close other open accordions
+            document.querySelectorAll('.footer-content').forEach(otherContent => {
+              if (otherContent !== content && otherContent.style.maxHeight) {
+                otherContent.style.maxHeight = null;
+                otherContent.previousElementSibling.querySelector('.toggle-icon').textContent = '+';
+              }
+            });
+            content.style.maxHeight = content.scrollHeight + "px"; // Expand
+            icon.textContent = '-';
+          }
+        }
+      });
+    });
+
+    // Close accordions on desktop if resized from mobile
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        document.querySelectorAll('.footer-content').forEach(content => {
+          content.style.maxHeight = null; // Remove maxHeight
+          content.previousElementSibling.querySelector('.toggle-icon').textContent = ''; // Remove icon
+        });
+        updateActiveDot(); // Re-evaluate active dot for services on resize
+      } else {
+        updateActiveDot(); // Re-evaluate active dot for services on resize
+      }
+    });
+
+    // Initial state for footer on load (if loaded on mobile)
+    if (window.innerWidth < 768) {
+      document.querySelectorAll('.footer-content').forEach(content => {
+        content.style.maxHeight = null; // Ensure collapsed on load
+        content.previousElementSibling.querySelector('.toggle-icon').textContent = '+'; // Ensure + icon
+      });
+    } else {
+      document.querySelectorAll('.footer-content').forEach(content => {
+        content.style.maxHeight = null; // Ensure expanded on desktop
+        content.previousElementSibling.querySelector('.toggle-icon').textContent = ''; // No icon on desktop
+      });
+    }
   </script>
 
 </body>
