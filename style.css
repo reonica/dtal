@@ -397,6 +397,14 @@ footer {
     display: flex; /* Show hamburger on mobile */
   }
 
+  .nav-logo {
+    max-height: 50px;
+    max-width: 180px; /* Added: Limit logo width on mobile */
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 1; /* Changed: Allow shrinking */
+  }
+
   .navbar-menu {
     display: none; /* Hide menu by default on mobile */
     flex-direction: column;
