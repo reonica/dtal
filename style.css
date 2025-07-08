@@ -476,6 +476,7 @@ footer {
   }
 
   .footer-container {
+    width: 100%; /* Ensure footer container takes full width on mobile */
     flex-direction: column; /* Stack columns vertically on mobile */
     align-items: center;
     margin-bottom: 0; /* Remove bottom margin for accordion */
@@ -483,7 +484,7 @@ footer {
   }
 
   .footer-column {
-    min-width: 100%; /* Full width on mobile */
+    width: 100%; /* Ensure footer column takes full width on mobile */
     padding: 0; /* Remove padding from column itself */
     margin-bottom: 0; /* Remove bottom margin */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator */
@@ -503,6 +504,7 @@ footer {
     background-color: rgba(255, 255, 255, 0.05); /* Slightly lighter background for header */
     margin-bottom: 0; /* Remove default h3 margin */
     color: white; /* Ensure text is white */
+    font-size: 1.1em; /* Adjusted: Smaller font size for mobile heading */
   }
 
   .footer-column h3.footer-toggle:hover {
