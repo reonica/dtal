@@ -310,6 +310,7 @@ footer {
   color: #007bff; /* Highlight color for headings */
   margin-bottom: 20px;
   font-size: 1.2em;
+  cursor: default; /* Default cursor on desktop */
 }
 
 .footer-column p,
@@ -467,6 +468,78 @@ footer {
 
   .partners img {
     max-height: 60px;
+  }
+
+  /* Footer Accordion Styles for Mobile */
+  footer {
+    padding: 20px 0; /* Reduced vertical padding for mobile */
+  }
+
+  .footer-container {
+    flex-direction: column; /* Stack columns vertically on mobile */
+    align-items: center;
+    margin-bottom: 0; /* Remove bottom margin for accordion */
+    gap: 0; /* Remove gap between columns for accordion */
+  }
+
+  .footer-column {
+    min-width: 100%; /* Full width on mobile */
+    padding: 0; /* Remove padding from column itself */
+    margin-bottom: 0; /* Remove bottom margin */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator */
+  }
+
+  .footer-column:last-of-type {
+    border-bottom: none; /* No border for the last column */
+  }
+
+  .footer-column h3.footer-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 15px 20px; /* Padding for the clickable header */
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.05); /* Slightly lighter background for header */
+    margin-bottom: 0; /* Remove default h3 margin */
+    color: white; /* Ensure text is white */
+  }
+
+  .footer-column h3.footer-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Hover effect */
+  }
+
+  .footer-column h3.footer-toggle .toggle-icon {
+    font-size: 1.5em;
+    transition: transform 0.3s ease;
+  }
+
+  .footer-column h3.footer-toggle.active .toggle-icon {
+    transform: rotate(45deg); /* Rotate + to X when active */
+  }
+
+  .footer-content {
+    max-height: 0; /* Hidden by default */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out; /* Smooth transition for expand/collapse */
+    padding: 0 20px; /* Padding for content */
+    background-color: rgba(255, 255, 255, 0.02); /* Slightly darker content background */
+  }
+
+  .footer-content.active {
+    max-height: 500px; /* Large enough value to show all content */
+    padding-bottom: 15px; /* Add padding at bottom when expanded */
+  }
+
+  .footer-column p,
+  .footer-column ul {
+    text-align: left; /* Align text to left within accordion */
+    padding-left: 0; /* Remove default ul padding */
+  }
+
+  .social-icons {
+    justify-content: flex-start; /* Align social icons to left */
+    padding-top: 10px;
   }
 }
 
