@@ -63,10 +63,21 @@
   <!-- Partners Section -->
   <section id="partners" class="section gray">
     <h2>Trusted by Leading Brands</h2>
-    <div class="partners">
-      <img src="image/partner/logo-techcombank.png" alt="Techcombank" />
-      <img src="image/partner/logo-acecook.png" alt="Acecook" />
-      <img src="image/partner/logo-hoaphat.png" alt="Hoa Phat Group" />
+    <div class="partners-carousel-container">
+      <div class="partners-inner">
+        <!-- Duplicate the logos to create a seamless loop -->
+        <img src="image/partner/logo-techcombank.png" alt="Techcombank" />
+        <img src="image/partner/logo-acecook.png" alt="Acecook" />
+        <img src="image/partner/logo-hoaphat.png" alt="Hoa Phat Group" />
+        <!-- Add more partner logos here as needed -->
+      </div>
+      <div class="partners-inner">
+        <!-- Duplicate the logos again for the infinite scroll effect -->
+        <img src="image/partner/logo-techcombank.png" alt="Techcombank" />
+        <img src="image/partner/logo-acecook.png" alt="Acecook" />
+        <img src="image/partner/logo-hoaphat.png" alt="Hoa Phat Group" />
+        <!-- Add more partner logos here as needed -->
+      </div>
     </div>
   </section>
 
@@ -79,9 +90,6 @@
   <button id="back-to-top" class="back-to-top">↑</button>
 
   <script>
-    // Smooth scrolling for anchor links
-    document.documentElement.style.scrollBehavior = 'smooth';
-
     // Back to Top Button functionality
     const backToTopButton = document.getElementById('back-to-top');
 
