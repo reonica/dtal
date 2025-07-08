@@ -337,9 +337,9 @@ footer {
   text-decoration: underline;
 }
 
-.social-icons a {
-  display: inline-block;
-  margin-right: 15px;
+.social-icons {
+  display: flex; /* Ensure flexbox for gap property */
+  gap: 15px; /* Added: Spacing between social media icons */
   font-size: 1.2em; /* Adjust icon size if using text/font icons */
   color: white; /* Default color for social icons */
 }
@@ -352,6 +352,7 @@ footer {
   text-align: center;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 20px;
+  margin-top: 20px; /* Added: Spacing between social icons section and copyright */
   font-size: 0.85em;
   color: rgba(255, 255, 255, 0.7);
 }
@@ -391,10 +392,16 @@ footer {
     flex-wrap: wrap; /* Allow items to wrap */
     justify-content: space-between;
     padding: 10px 15px;
+    box-sizing: border-box; /* Ensure padding is included in width */
   }
 
   .hamburger-menu {
     display: flex; /* Show hamburger on mobile */
+  }
+
+  .navbar-brand { /* Added: Ensure navbar-brand can shrink */
+    flex-shrink: 1;
+    min-width: 0; /* Allow content to shrink below its intrinsic size */
   }
 
   .nav-logo {
@@ -415,6 +422,7 @@ footer {
     left: 0;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     padding: 10px 0;
+    box-sizing: border-box; /* Ensure padding is included in width */
   }
 
   .navbar-menu.active {
@@ -550,6 +558,7 @@ footer {
   .social-icons {
     justify-content: flex-start; /* Align social icons to left */
     padding-top: 10px;
+    gap: 10px; /* Adjusted: Smaller gap for mobile social icons */
   }
 }
 
