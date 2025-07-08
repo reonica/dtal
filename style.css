@@ -389,7 +389,7 @@ footer {
     padding-top: 100px; /* Adjusted: More padding for mobile navbar */
   }
   .navbar {
-    flex-wrap: wrap; /* Allow items to wrap */
+    flex-wrap: nowrap; /* Prevent wrapping on mobile to keep logo and hamburger on one line */
     justify-content: space-between;
     padding: 10px 15px;
     box-sizing: border-box; /* Ensure padding is included in width */
@@ -398,11 +398,11 @@ footer {
   .hamburger-menu {
     display: flex; /* Show hamburger on mobile */
     flex-shrink: 0; /* Prevent hamburger from shrinking */
-    margin-left: 10px; /* Small gap between logo and hamburger */
+    margin-left: auto; /* Push hamburger to the right */
   }
 
-  .navbar-brand { /* Added: Ensure navbar-brand can shrink */
-    flex-grow: 1; /* Allow it to grow to fill space */
+  .navbar-brand {
+    flex-grow: 0; /* Prevent logo container from growing */
     flex-shrink: 1; /* Allow it to shrink */
     min-width: 0; /* Allow content to shrink below its intrinsic size */
     display: flex; /* Make it a flex container to control logo */
@@ -411,10 +411,9 @@ footer {
 
   .nav-logo {
     max-height: 50px;
-    width: 100%; /* Make it fill its parent's flexible width */
+    width: auto; /* Allow logo to scale down while maintaining aspect ratio */
     max-width: 180px; /* Limit logo width on mobile */
     object-fit: contain;
-    /* flex-shrink: 1; is now handled by navbar-brand */
   }
 
   .navbar-menu {
