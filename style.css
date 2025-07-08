@@ -389,30 +389,43 @@ footer {
     padding-top: 100px; /* Adjusted: More padding for mobile navbar */
   }
   .navbar {
-    flex-wrap: nowrap; /* Prevent wrapping on mobile to keep logo and hamburger on one line */
-    justify-content: space-between;
-    padding: 10px 15px;
-    box-sizing: border-box; /* Ensure padding is included in width */
+    position: fixed; /* Keep fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 10px 15px; /* Adjusted padding for mobile */
+    display: flex;
+    justify-content: center; /* Changed to center for hamburger */
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
   }
 
   .hamburger-menu {
     display: flex; /* Show hamburger on mobile */
     flex-shrink: 0; /* Prevent hamburger from shrinking */
-    margin-left: auto; /* Push hamburger to the right */
+    /* No margin-left: auto; needed as justify-content: center will center it */
   }
 
   .navbar-brand {
-    flex-grow: 0; /* Prevent logo container from growing */
-    flex-shrink: 1; /* Allow it to shrink */
-    min-width: 0; /* Allow content to shrink below its intrinsic size */
-    display: flex; /* Make it a flex container to control logo */
-    align-items: center; /* Vertically align logo */
+    position: absolute; /* Position logo absolutely */
+    left: 15px; /* Place logo on the left edge with padding */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    flex-grow: 0;
+    flex-shrink: 0; /* Prevent it from shrinking/growing */
+    min-width: unset; /* Remove min-width to avoid conflicts */
+    display: flex;
+    align-items: center;
+    z-index: 1001; /* Ensure logo is above other navbar content if needed */
   }
 
   .nav-logo {
     max-height: 50px;
     width: auto; /* Allow logo to scale down while maintaining aspect ratio */
-    max-width: 180px; /* Limit logo width on mobile */
+    max-width: 100%; /* Ensure it doesn't overflow its parent */
     object-fit: contain;
   }
 
