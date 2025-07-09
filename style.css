@@ -79,7 +79,7 @@ h1, h2, h3 {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 15px; /* Space between menu items */
+  gap: 30px; /* Space between menu items */
   align-items: center; /* Align menu items vertically */
 }
 
@@ -196,16 +196,21 @@ h1, h2, h3 {
 /* --- Services Section --- */
 .services {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap; /* Default: wrap on desktop */
-  gap: 30px;
+  justify-content: flex-start; /* Align items to start for scrolling */
+  flex-wrap: nowrap; /* Prevent wrapping on mobile */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  scroll-snap-type: x mandatory; /* Snap to items */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  gap: 20px; /* Use gap for spacing between items */
+  padding: 0 20px 20px; /* Add horizontal padding to the carousel container itself */
+  box-sizing: border-box; /* Ensure padding is included in width */
   margin-top: 40px;
 }
 
 .service {
-  flex: 1;
-  min-width: 280px;
-  max-width: 350px;
+  flex-shrink: 0; /* Prevent items from shrinking */
+  width: calc(100vw - 40px); /* 100vw - (padding-left + padding-right) of .services */
+  scroll-snap-align: start; /* Snap to the start of each item */
   padding: 30px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -473,32 +478,6 @@ footer {
   }
   .btn {
     padding: 10px 20px;
-  }
-
-  /* Services Section Mobile Slide */
-  .services {
-    flex-wrap: nowrap; /* Prevent wrapping on mobile */
-    overflow-x: auto; /* Enable horizontal scrolling */
-    scroll-snap-type: x mandatory; /* Snap to items */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    justify-content: flex-start; /* Align items to start for scrolling */
-    gap: 0; /* Remove gap if using margin-right on service items */
-    padding-bottom: 20px; /* Add padding for scrollbar */
-  }
-
-  .service {
-    flex-shrink: 0; /* Prevent items from shrinking */
-    width: 85vw; /* Each item takes 85% of viewport width */
-    margin-right: 20px; /* Space between items */
-    scroll-snap-align: start; /* Snap to the start of each item */
-  }
-
-  .service:last-child {
-    margin-right: 0; /* No margin on the last item */
-  }
-
-  .partners img {
-    max-height: 60px;
   }
 
   /* Footer Accordion Styles for Mobile */
