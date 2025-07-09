@@ -79,7 +79,7 @@ h1, h2, h3 {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 30px; /* Space between menu items */
+  gap: 15px; /* Space between menu items */
   align-items: center; /* Align menu items vertically */
 }
 
