@@ -1,6 +1,7 @@
 /* General Body Styles */
 html {
   scroll-behavior: smooth; /* Enable smooth scrolling for all anchor links */
+  overflow-x: hidden; /* Added: Hide horizontal scrollbar for entire page */
 }
 
 body {
@@ -9,6 +10,7 @@ body {
   padding-top: 80px; /* Add padding-top to body to prevent content from being hidden by fixed navbar */
   box-sizing: border-box;
   color: #333;
+  overflow-x: hidden; /* Added: Hide horizontal scrollbar for body */
 }
 
 /* Section Styles */
@@ -77,7 +79,7 @@ h1, h2, h3 {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 15px; /* Space between menu items */
+  gap: 30px; /* Space between menu items */
   align-items: center; /* Align menu items vertically */
 }
 
@@ -396,7 +398,7 @@ footer {
     background-color: rgba(255, 255, 255, 0.95);
     padding: 10px 15px; /* Adjusted padding for mobile */
     display: flex;
-    justify-content: flex-start; /* Logo on left, hamburger pushed by margin-left */
+    justify-content: space-between; /* Logo left, hamburger right */
     align-items: center;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -406,14 +408,12 @@ footer {
   .hamburger-menu {
     display: flex; /* Show hamburger on mobile */
     flex-shrink: 0; /* Prevent hamburger from shrinking */
-    margin-left: auto; /* Pushes hamburger to the right */
-    margin-right: 15px;
     padding: 5px; /* Reduced padding for a tighter fit */
   }
 
   .navbar-brand {
     flex-grow: 0;
-    flex-shrink: 0; /* Prevent it from shrinking/growing */
+    flex-shrink: 1; /* Allow it to shrink */
     min-width: unset; /* Remove min-width to avoid conflicts */
     display: flex;
     align-items: center;
@@ -422,7 +422,7 @@ footer {
   .nav-logo {
     max-height: 50px;
     width: auto; /* Allow logo to scale down while maintaining aspect ratio */
-    max-width: 100%; /* Ensure it doesn't overflow its parent */
+    max-width: 120px; /* Adjusted: Fixed max-width to ensure it fits */
     object-fit: contain;
   }
 
