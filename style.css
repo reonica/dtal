@@ -428,7 +428,7 @@ footer {
   .navbar-menu {
     display: none; /* Hide menu by default on mobile */
     flex-direction: column;
-    width: 100%;
+    width: 60%;
     background-color: rgba(255, 255, 255, 0.98); /* Full width menu background */
     position: absolute;
     top: 100%; /* Position below the navbar */
